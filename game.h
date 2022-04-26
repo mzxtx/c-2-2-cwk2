@@ -7,9 +7,9 @@
 
 #endif //C_2_2_CWK2_GAME_H
 
-int N_L;
-void Read_File();
+void N_L();
+void Read_Last();
+void Read_New();
 void Write_File();
-char Y_N();
 int Get_Step();
 void Run();
