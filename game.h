@@ -7,8 +7,9 @@
 
 #endif //C_2_2_CWK2_GAME_H
 
+int N_L;
 void Read_File();
 void Write_File();
-int chose_game();
-void Get_Step();
+char Y_N();
+int Get_Step();
 void Run();
