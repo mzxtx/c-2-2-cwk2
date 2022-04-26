@@ -6,4 +6,4 @@
 #define C_2_2_CWK2_SDL_H
 
 #endif //C_2_2_CWK2_SDL_H
-void sdl();
+int sdl();

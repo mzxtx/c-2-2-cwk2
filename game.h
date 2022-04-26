@@ -9,6 +9,6 @@
 
 void Read_File();
 void Write_File();
-char Y_N();
-int Get_Step();
+int chose_game();
+void Get_Step();
 void Run();
