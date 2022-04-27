@@ -175,7 +175,7 @@ int Get_Step() {
     }
 }
 
-void play_step(){
+void play_game(){
     for(game.time=0;game.time<game.step;game.time++){
         for(int i=0;i<game.lin;i++){
             for(int j=0;j<game.col;j++){
@@ -228,11 +228,32 @@ void play_step(){
                     num[6]='0';
                     num[7]='0';
                 }
+                int count=0;
                 for(int in=0;in<8;in++){
-
+                    if(num[i]=='1'){
+                        count++;
+                    }
+                }
+                if(game.game[i][j]=='1'){
+                    if(count==2||count==3){
+                        game.game1[i][j]='1';
+                    } else{
+                        game.game1[i][j]='0';
+                    }
+                    printf("%c",game.game1[i][j]);
+                }
+                if(game.game[i][j]=='0'){
+                    if(count==3){
+                        game.game1[i][j]='1';
+                    } else{
+                        game.game1[i][j]='0';
+                    }
+                    printf("%c",game.game1[i][j]);
                 }
             }
+            printf("\n");
         }
+        printf("\n");
     }
 }
 
@@ -241,5 +262,6 @@ void Run() {
     N_L();
     //Get_Step();
     printf("%d",Get_Step());
+    p
     //sdl();
 }

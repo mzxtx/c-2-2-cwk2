@@ -13,11 +13,12 @@ struct Game{
     int time;
     int step;
     int count;
+    char game1[50][50];
 };
 void N_L();
 void Read_Last();
 void Read_New();
 void Write_File();
 int Get_Step();
-void play_step();
+void play_game();
 void Run();
