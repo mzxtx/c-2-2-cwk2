@@ -7,6 +7,7 @@
 #include "game.h"
 #include "sdl.h"
 struct Game game;
+struct Gameof game1;
 //Ask users to start a new game or continue with the last one.
 void N_L() {
     while (1) {
@@ -154,15 +155,14 @@ int Get_Step() {
         getchar();
         if (c == 'Y' || c == 'y') {
             printf("Please enter the number of game steps:");
-            int i;
-            scanf("%d", &i);
-            if (i == 0 || i > 10000) {
+            scanf("%d", &game.step);
+            if (game.step == 0 || game.step > 10000) {
                 setbuf(stdin, NULL);
                 printf("Invalid input, please re-enter.\n");
                 continue;
             }
             setbuf(stdin, NULL);
-            return i;
+            return game.step;
         } else {
             if (c == 'N' || c == 'n') {
                 setbuf(stdin, NULL);
@@ -176,92 +176,95 @@ int Get_Step() {
 }
 
 void play_game(){
-    for(game.time=0;game.time<game.step;game.time++){
-        for(int i=0;i<game.lin;i++){
-            for(int j=0;j<game.col;j++){
-                char num[8]={game.game[i-1][j-1],game.game[i-1][j],game.game[i-1][j+1],game.game[i][j-1],game.game[i][j+1],game.game[i+1][j-1],game.game[i+1][j],game.game[i+1][j+1]};
-                if(i==0&&j==0){
-                    num[0]='0';
-                    num[1]='0';
-                    num[2]='0';
-                    num[3]='0';
-                    num[5]='0';
-                }
-                if(i==0&&j!=0&&j!=game.col-1){
-                    num[0]='0';
-                    num[1]='0';
-                    num[2]='0';
-                }
-                if(i==0&&j==game.col-1){
-                    num[0]='0';
-                    num[1]='0';
-                    num[2]='0';
-                    num[4]='0';
-                    num[7]='0';
-                }
-                if(i!=0&&i!=game.col-1&&j==0){
-                    num[0]='0';
-                    num[3]='0';
-                    num[5]='0';
-                }
-                if(i!=0&&i!=game.col-1&&j==game.col-1){
-                    num[2]='0';
-                    num[4]='0';
-                    num[7]='0';
-                }
-                if(i==game.lin-1&&j==0){
-                    num[0]='0';
-                    num[3]='0';
-                    num[5]='0';
-                    num[6]='0';
-                    num[7]='0';
-                }
-                if(i==game.lin-1&&j!=0&&j!=game.col-1){
-                    num[5]='0';
-                    num[6]='0';
-                    num[7]='0';
-                }
-                if(i==game.lin-1&&j==game.col-1){
-                    num[2]='0';
-                    num[4]='0';
-                    num[5]='0';
-                    num[6]='0';
-                    num[7]='0';
-                }
-                int count=0;
-                for(int in=0;in<8;in++){
-                    if(num[i]=='1'){
-                        count++;
+    game1.i=0;game1.j=0;game1.x=0;game1.y=0;
+    game.time=0;
+
+}
+
+
+void game_odd(){
+    for(game1.i=0;game1.i<game.lin;game1.i++){
+        for(game1.j=0;game1.j<game.col;game1.j++){
+            int count=0;
+            for(game1.x=(game1.i-1);game1.x<=(game1.i+1);game1.x++){
+                for(game1.y=(game1.j-1);game1.y<=(game1.j+1);game1.y++){
+                    if(game.game[game1.x][game1.y]=='1') {
+                        count = count + 1;
                     }
-                }
-                if(game.game[i][j]=='1'){
-                    if(count==2||count==3){
-                        game.game1[i][j]='1';
-                    } else{
-                        game.game1[i][j]='0';
-                    }
-                    printf("%c",game.game1[i][j]);
-                }
-                if(game.game[i][j]=='0'){
-                    if(count==3){
-                        game.game1[i][j]='1';
-                    } else{
-                        game.game1[i][j]='0';
-                    }
-                    printf("%c",game.game1[i][j]);
                 }
             }
-            printf("\n");
+            if(game.game[game1.i][game1.j]=='1'){
+                if(count==2||count==3){
+                    game.game1[game1.i][game1.j]='1';
+                } else{
+                    game.game1[game1.i][game1.j]='0';
+                }
+                printf("%c",game.game1[game1.i][game1.j]);
+            }
+            if(game.game[game1.i][game1.j]=='0'){
+                if(count==3){
+                    game.game1[game1.i][game1.j]='1';
+                } else{
+                    game.game1[game1.i][game1.j]='0';
+                }
+                printf("%c",game.game1[game1.i][game1.j]);
+            }
         }
         printf("\n");
+        game.time++;
+    }
+    printf("\n");
+}
+
+void game_even(){
+    for(game1.i=0;game1.i<game.lin;game1.i++){
+        for(game1.j=0;game1.j<game.col;game1.j++){
+            int count=0;
+            for(game1.x=(game1.i-1);game1.x<=(game1.i+1);game1.x++){
+                for(game1.y=(game1.j-1);game1.y<=(game1.j+1);game1.y++){
+                    if(game.game[game1.x][game1.y]=='1') {
+                        count = count + 1;
+                    }
+                }
+            }
+            if(game.game1[game1.i][game1.j]=='1'){
+                if(count==2||count==3){
+                    game.game[game1.i][game1.j]='1';
+                } else{
+                    game.game[game1.i][game1.j]='0';
+                }
+                printf("%c",game.game[game1.i][game1.j]);
+            }
+            if(game.game1[game1.i][game1.j]=='0'){
+                if(count==3){
+                    game.game[game1.i][game1.j]='1';
+                } else{
+                    game.game[game1.i][game1.j]='0';
+                }
+                printf("%c",game.game[game1.i][game1.j]);
+            }
+        }
+        printf("\n");
+        game.time++;
+    }
+    printf("\n");
+}
+
+int exam(){
+    for(game1.i=0;game1.i<game.lin;game1.i++) {
+        for (game1.j = 0; game1.j < game.col; game1.j++) {
+            if(game.game[game1.i][game1.j]=='1'){
+
+            }
+        }
     }
 }
 
 //Run the game
 void Run() {
     N_L();
-    //Get_Step();
-    printf("%d",Get_Step());
-    p
+    Get_Step();
+    play_game();
+    //printf("%d",Get_Step());
     //sdl();
 }

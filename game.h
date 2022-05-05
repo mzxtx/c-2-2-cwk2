@@ -15,10 +15,20 @@ struct Game{
     int count;
     char game1[50][50];
 };
+
+struct Gameof{
+    int i;
+    int j;
+    int x;
+    int y;
+};
 void N_L();
 void Read_Last();
 void Read_New();
 void Write_File();
 int Get_Step();
 void play_game();
+void game_odd();
+void game_even();
+int exam();
 void Run();
