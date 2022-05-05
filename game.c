@@ -8,24 +8,27 @@
 #include "sdl.h"
 struct Game game;
 struct Gameof game1;
+int N_Y,n_l;
 //Ask users to start a new game or continue with the last one.
 void N_L() {
-    while (1) {
-        printf("New Game(N) / Last Game(L):");
-        char c;
-        scanf("%c", &c);
-        if (c == 'N' || c == 'n') {
+        printf("Please select the game type:\n");
+        printf("1.New Game\n");
+        printf("2.Last Game\n");
+        printf("3.Exit\n");
+        scanf("%d", &n_l);
+        if (n_l == 1) {
             Read_New();
-            break;
-        } else {
-            if (c == 'L' || c == 'l') {
-                Read_Last();
-                break;
-            }
         }
-        printf("Invalid input, please re-enter.\n");
-        setbuf(stdin, NULL);
-    }
+        if (n_l == 2) {
+            Read_Last();
+        }
+        if(n_l==3){
+            exit(0);
+        } if(n_l!=1&&n_l!=2&&n_l!=3) {
+            printf("Invalid input, please re-enter.\n");
+            setbuf(stdin, NULL);
+            N_L();
+        }
 }
 
 //Reads the initial state of the world from a file
@@ -147,38 +150,76 @@ void Write_File() {
 }
 
 //Get the number of steps from the user
-int Get_Step() {
-    while (1) {
-        printf("Do you want to set the number of steps (if you don't, the game will continue until the end)? (Y / N):");
-        char c;
-        scanf("%c", &c);
-        getchar();
-        if (c == 'Y' || c == 'y') {
-            printf("Please enter the number of game steps:");
-            scanf("%d", &game.step);
-            if (game.step == 0 || game.step > 10000) {
-                setbuf(stdin, NULL);
-                printf("Invalid input, please re-enter.\n");
-                continue;
-            }
-            setbuf(stdin, NULL);
-            return game.step;
-        } else {
-            if (c == 'N' || c == 'n') {
-                setbuf(stdin, NULL);
-                return 1;
-            }
-        }
-        setbuf(stdin, NULL);
+void if_Step() {
+    if(n_l==1||n_l==2){
+    printf("Do you want to set the number of steps (if you don't, the game will continue until the end)?\n");
+    printf("1.Yes\n");
+    printf("2.No\n");
+    printf("3.Return back\n");
+    printf("4.Exit\n");
+    scanf("%d", &N_Y);
+    //getchar();
+    if(N_Y!=1&&N_Y!=2&&N_Y!=3&&N_Y!=4){
         printf("Invalid input, please re-enter.\n");
-
+        setbuf(stdin, NULL);
+        if_Step();
+    }}
+    if(N_Y==3){
+        N_L();
+    }
+    if(N_Y==4){
+        exit(0);
+    }
+}
+int Get_step(){
+    if (N_Y == 1) {
+        printf("Please enter the number of game steps:");
+        scanf("%d", &game.step);
+        if (game.step == 0 ) {
+            setbuf(stdin, NULL);
+            printf("Invalid input, please re-enter.\n");
+            Get_step();
+        }
+        return game.step;
+    }
+    if (N_Y == 2) {
+        setbuf(stdin, NULL);
+        return -1;
     }
 }
 
 void play_game(){
     game1.i=0;game1.j=0;game1.x=0;game1.y=0;
     game.time=0;
-
+    int get=Get_step();
+    for(game1.i=0;game1.i<game.lin;game1.i++)
+    {
+        for(game1.j=0;game1.j<game.col;game1.j++)
+        {
+            printf("%c",game.game[game1.i][game1.j]);
+        }
+        printf("\n");
+    }
+    printf("%d",game.time);
+    printf("\n");
+    if(get==-1){
+        do{
+            game_odd();
+            game_even();
+        } while (exam()==1);
+    }
+    if(get!=-1&&get!=0){
+        while (1){
+            game_odd();
+            if(exam()==0||game.time>=game.step){
+                break;
+            }
+            game_even();
+            if(exam()==0||game.time>=game.step){
+                break;
+            }
+        }
+    }
 }
 
 
@@ -211,8 +252,9 @@ void game_odd(){
             }
         }
         printf("\n");
-        game.time++;
     }
+    game.time++;
+    printf("%d",game.time);
     printf("\n");
 }
 
@@ -245,16 +287,19 @@ void game_even(){
             }
         }
         printf("\n");
-        game.time++;
     }
+    game.time++;
+    printf("%d",game.time);
     printf("\n");
 }
 
 int exam(){
     for(game1.i=0;game1.i<game.lin;game1.i++) {
         for (game1.j = 0; game1.j < game.col; game1.j++) {
-            if(game.game[game1.i][game1.j]=='1'){
-
+            if(game.game[game1.i][game1.j]=='1'||game.game1[game1.i][game1.j]=='1'){
+                return 1;
+            } else{
+                return 0;
             }
         }
     }
@@ -263,8 +308,9 @@ int exam(){
 //Run the game
 void Run() {
     N_L();
-    Get_Step();
+    if_Step();
+    //Get_step();
     play_game();
-    //printf("%d",Get_Step());
+    //printf("%d",Get_step());
     //sdl();
 }

@@ -26,6 +26,7 @@ void N_L();
 void Read_Last();
 void Read_New();
 void Write_File();
+void if_Step();
 int Get_Step();
 void play_game();
 void game_odd();
