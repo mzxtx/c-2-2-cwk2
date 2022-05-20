@@ -4,6 +4,8 @@
 
 #ifndef C_2_2_CWK2_SDL_H
 #define C_2_2_CWK2_SDL_H
-
+#define WIDTH 400
+#define HEIGHT 300
 #endif //C_2_2_CWK2_SDL_H
-int sdl();
+void play();
+void sdl();

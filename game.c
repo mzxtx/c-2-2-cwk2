@@ -97,7 +97,7 @@ void Read_Last() {
     f = fopen("../lastgame.txt", "r");
     if (fp == NULL) {
         setbuf(stdin, NULL);
-        printf("Game log file not found, you can start a new game.\n");
+        printf("Sorry, game data not found, you can start a new game. \n");
         N_L();
     }
     /*
@@ -175,7 +175,7 @@ int Get_step(){
     if (N_Y == 1) {
         printf("Please enter the number of game steps:");
         scanf("%d", &game.step);
-        if (game.step == 0 ) {
+        if (game.step <= 0 ) {
             setbuf(stdin, NULL);
             printf("Invalid input, please re-enter.\n");
             Get_step();
@@ -192,8 +192,7 @@ void play_game(){
     game1.i=0;game1.j=0;game1.x=0;game1.y=0;
     game.time=0;
     int get=Get_step();
-    for(game1.i=0;game1.i<game.lin;game1.i++)
-    {
+    for(game1.i=0;game1.i<game.lin;game1.i++){
         for(game1.j=0;game1.j<game.col;game1.j++)
         {
             printf("%c",game.game[game1.i][game1.j]);
@@ -201,20 +200,22 @@ void play_game(){
         printf("\n");
     }
     printf("%d",game.time);
+}
+    /*
     printf("\n");
     if(get==-1){
         do{
-            game_odd();
-            game_even();
+            game_odd(screen,win);
+            game_even(screen,win);
         } while (exam()==1);
     }
     if(get!=-1&&get!=0){
         while (1){
-            game_odd();
+            game_odd(screen,win);
             if(exam()==0||game.time>=game.step){
                 break;
             }
-            game_even();
+            game_even(screen,win);
             if(exam()==0||game.time>=game.step){
                 break;
             }
@@ -235,12 +236,13 @@ void game_odd(){
                 }
             }
             if(game.game[game1.i][game1.j]=='1'){
-                if(count==2||count==3){
+                if(count==3||count==4){
                     game.game1[game1.i][game1.j]='1';
                 } else{
                     game.game1[game1.i][game1.j]='0';
                 }
                 printf("%c",game.game1[game1.i][game1.j]);
+
             }
             if(game.game[game1.i][game1.j]=='0'){
                 if(count==3){
@@ -249,6 +251,7 @@ void game_odd(){
                     game.game1[game1.i][game1.j]='0';
                 }
                 printf("%c",game.game1[game1.i][game1.j]);
+
             }
         }
         printf("\n");
@@ -270,12 +273,13 @@ void game_even(){
                 }
             }
             if(game.game1[game1.i][game1.j]=='1'){
-                if(count==2||count==3){
+                if(count==3||count==4){
                     game.game[game1.i][game1.j]='1';
                 } else{
                     game.game[game1.i][game1.j]='0';
                 }
                 printf("%c",game.game[game1.i][game1.j]);
+
             }
             if(game.game1[game1.i][game1.j]=='0'){
                 if(count==3){
@@ -284,6 +288,7 @@ void game_even(){
                     game.game[game1.i][game1.j]='0';
                 }
                 printf("%c",game.game[game1.i][game1.j]);
+
             }
         }
         printf("\n");
@@ -304,7 +309,7 @@ int exam(){
         }
     }
 }
-
+*/
 //Run the game
 void Run() {
     N_L();

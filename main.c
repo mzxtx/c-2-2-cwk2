@@ -2,8 +2,9 @@
 
 #include "game.h"
 #include "sdl.h"
-
 int main() {
-    Run();
+    N_L();
+    sdl();
+    //Run();
     return 0;
 }
