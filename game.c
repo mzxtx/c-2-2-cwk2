@@ -56,6 +56,7 @@ void Read_New() {
         }
     }
     fclose(fp);
+    game.lin++;
     game.col = al / game.lin;
     //printf("%d,%d\n",game.col,game.lin);
     int i, j;
