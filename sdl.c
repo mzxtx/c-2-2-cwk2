@@ -32,9 +32,6 @@ void play(){
     SDL_Delay(1000);
     //printf("%d",game.time);
     while (1){
-        if(game.exam==0||game.time>=game.step){
-            break;
-        }
         game_odd();
         for(game1.i=0;game1.i<game.lin;game1.i++){
             for(game1.j=0;game1.j<game.col;game1.j++)
@@ -53,7 +50,7 @@ void play(){
         }
         SDL_UpdateWindowSurface(win);
         SDL_Delay(1000);
-        if(game.exam==0||game.time>=game.step){
+        if(game.exam==0||game.exam1==0||game.time>=game.step){
             break;
         }
         game_even();
@@ -74,6 +71,9 @@ void play(){
         }
         SDL_UpdateWindowSurface(win);
         SDL_Delay(1000);
+        if(game.exam==0||game.exam1==0||game.time>=game.step){
+            break;
+        }
     }
 }
 void sdl(){

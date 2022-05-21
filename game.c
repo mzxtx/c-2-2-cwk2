@@ -56,9 +56,8 @@ void Read_New() {
         }
     }
     fclose(fp);
-    game.lin++;
     game.col = al / game.lin;
-    //printf("%d,%d\n",game.col,game.lin);
+    //printf("%d,%d\n", game.col, game.lin);
     int i, j;
     for (i = 0; i < game.lin; i++) {
         for (j = 0; j < game.col; j++) {
@@ -68,11 +67,11 @@ void Read_New() {
     }
     fclose(f);
     setbuf(stdin, NULL);
-    game.exam=0;
+    game.exam = 0;
     for (game1.i = 0; game1.i < game.lin; game1.i++) {
         for (game1.j = 0; game1.j < game.col; game1.j++) {
-            if (game.game[game1.i][game1.j] == '1' ) {
-                game.exam=1;
+            if (game.game[game1.i][game1.j] == '1') {
+                game.exam = 1;
             }
         }
     }
@@ -119,7 +118,7 @@ void Read_Last() {
     fclose(fp);
     game.col = al / game.lin;
     game.col++;
-    //printf("%d,%d\n",game.col,game.lin);
+    printf("%d,%d\n", game.col, game.lin);
     int i, j;
     for (i = 0; i < game.lin; i++) {
         for (j = 0; j < game.col; j++) {
@@ -129,11 +128,11 @@ void Read_Last() {
     }
     fclose(f);
     setbuf(stdin, NULL);
-    game.exam=0;
+    game.exam = 0;
     for (game1.i = 0; game1.i < game.lin; game1.i++) {
         for (game1.j = 0; game1.j < game.col; game1.j++) {
-            if (game.game[game1.i][game1.j] == '1' ) {
-                game.exam=1;
+            if (game.game[game1.i][game1.j] == '1') {
+                game.exam = 1;
             }
         }
     }
@@ -182,20 +181,16 @@ void if_Step() {
         printf("Do you want to set the number of steps (if you don't, the game will continue until the end)?\n");
         printf("1.Yes\n");
         printf("2.No\n");
-        printf("3.Return back\n");
-        printf("4.Exit\n");
+        printf("3.Exit\n");
         scanf("%d", &N_Y);
         //getchar();
-        if (N_Y != 1 && N_Y != 2 && N_Y != 3 && N_Y != 4) {
+        if (N_Y != 1 && N_Y != 2 && N_Y != 3) {
             printf("Invalid input, please re-enter.\n");
             setbuf(stdin, NULL);
             if_Step();
         }
     }
     if (N_Y == 3) {
-        N_L();
-    }
-    if (N_Y == 4) {
         exit(0);
     }
 }
@@ -221,13 +216,18 @@ void game_odd() {
     for (game1.i = 0; game1.i < game.lin; game1.i++) {
         for (game1.j = 0; game1.j < game.col; game1.j++) {
             int count = 0;
+            int co0 = 0;
             for (game1.x = (game1.i - 1); game1.x <= (game1.i + 1); game1.x++) {
                 for (game1.y = (game1.j - 1); game1.y <= (game1.j + 1); game1.y++) {
                     if (game.game[game1.x][game1.y] == '1') {
                         count = count + 1;
                     }
+                    if (game.game[game1.x][game1.y] == '0') {
+                        co0 = co0 + 1;
+                    }
                 }
             }
+            //printf("%d-%d",count,co0);
             if (game.game[game1.i][game1.j] == '1') {
                 if (count == 3 || count == 4) {
                     game.game1[game1.i][game1.j] = '1';
@@ -250,11 +250,18 @@ void game_odd() {
         printf("\n");
     }
     game.time++;
-    game.exam=0;
+    game.exam = 0,game.exam1=0;
     for (game1.i = 0; game1.i < game.lin; game1.i++) {
         for (game1.j = 0; game1.j < game.col; game1.j++) {
-            if (game.game1[game1.i][game1.j] == '1' ) {
-                game.exam=1;
+            if (game.game1[game1.i][game1.j] == '1') {
+                game.exam = 1;
+            }
+        }
+    }
+    for (game1.i = 0; game1.i < game.lin; game1.i++) {
+        for (game1.j = 0; game1.j < game.col; game1.j++) {
+            if (game.game1[game1.i][game1.j] != game.game[game1.i][game1.j]) {
+                game.exam1 = 1;
             }
         }
     }
@@ -267,13 +274,18 @@ void game_even() {
     for (game1.i = 0; game1.i < game.lin; game1.i++) {
         for (game1.j = 0; game1.j < game.col; game1.j++) {
             int count = 0;
+            int co0 = 0;
             for (game1.x = (game1.i - 1); game1.x <= (game1.i + 1); game1.x++) {
                 for (game1.y = (game1.j - 1); game1.y <= (game1.j + 1); game1.y++) {
                     if (game.game[game1.x][game1.y] == '1') {
                         count = count + 1;
                     }
+                    if (game.game[game1.x][game1.y] == '0') {
+                        co0 = co0 + 1;
+                    }
                 }
             }
+            //printf("%d-%d",count,co0);
             if (game.game1[game1.i][game1.j] == '1') {
                 if (count == 3 || count == 4) {
                     game.game[game1.i][game1.j] = '1';
@@ -286,7 +298,8 @@ void game_even() {
             if (game.game1[game1.i][game1.j] == '0') {
                 if (count == 3) {
                     game.game[game1.i][game1.j] = '1';
-                } else {
+                }
+                if (count != 3) {
                     game.game[game1.i][game1.j] = '0';
                 }
                 printf("%c", game.game[game1.i][game1.j]);
@@ -296,11 +309,18 @@ void game_even() {
         printf("\n");
     }
     game.time++;
-    game.exam=0;
+    game.exam = 0,game.exam1 = 0;
     for (game1.i = 0; game1.i < game.lin; game1.i++) {
         for (game1.j = 0; game1.j < game.col; game1.j++) {
-            if (game.game[game1.i][game1.j] == '1' ) {
-                game.exam=1;
+            if (game.game[game1.i][game1.j] == '1') {
+                game.exam = 1;
+            }
+        }
+    }
+    for (game1.i = 0; game1.i < game.lin; game1.i++) {
+        for (game1.j = 0; game1.j < game.col; game1.j++) {
+            if (game.game1[game1.i][game1.j] != game.game[game1.i][game1.j]) {
+                game.exam1 = 1;
             }
         }
     }
