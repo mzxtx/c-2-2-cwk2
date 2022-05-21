@@ -313,8 +313,8 @@ void game_even() {
 void Run() {
     N_L();
     if_Step();
-    //Get_step();
+    Get_step();
     //play_game();
-    printf("%d", Get_step());
+    //printf("%d", Get_step());
     //sdl();
 }
