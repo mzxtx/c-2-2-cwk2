@@ -27,7 +27,6 @@ void Read_New();
 void Write_File();
 void if_Step();
 int Get_Step();
-void play_game();
 void game_odd();
 void game_even();
 int exam();

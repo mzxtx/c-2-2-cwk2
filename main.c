@@ -3,7 +3,7 @@
 #include "game.h"
 #include "sdl.h"
 int main() {
-    N_L();
+    Run();
     sdl();
     //Run();
     return 0;

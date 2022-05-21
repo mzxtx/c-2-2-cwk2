@@ -180,49 +180,13 @@ int Get_step(){
             printf("Invalid input, please re-enter.\n");
             Get_step();
         }
-        return game.step;
     }
     if (N_Y == 2) {
         setbuf(stdin, NULL);
-        return -1;
+        game.step=1000;
     }
+    return game.step;
 }
-
-void play_game(){
-    game1.i=0;game1.j=0;game1.x=0;game1.y=0;
-    game.time=0;
-    int get=Get_step();
-    for(game1.i=0;game1.i<game.lin;game1.i++){
-        for(game1.j=0;game1.j<game.col;game1.j++)
-        {
-            printf("%c",game.game[game1.i][game1.j]);
-        }
-        printf("\n");
-    }
-    printf("%d",game.time);
-}
-    /*
-    printf("\n");
-    if(get==-1){
-        do{
-            game_odd(screen,win);
-            game_even(screen,win);
-        } while (exam()==1);
-    }
-    if(get!=-1&&get!=0){
-        while (1){
-            game_odd(screen,win);
-            if(exam()==0||game.time>=game.step){
-                break;
-            }
-            game_even(screen,win);
-            if(exam()==0||game.time>=game.step){
-                break;
-            }
-        }
-    }
-}
-
 
 void game_odd(){
     for(game1.i=0;game1.i<game.lin;game1.i++){
@@ -258,6 +222,7 @@ void game_odd(){
     }
     game.time++;
     printf("%d",game.time);
+    printf("%d",exam());
     printf("\n");
 }
 
@@ -295,27 +260,27 @@ void game_even(){
     }
     game.time++;
     printf("%d",game.time);
+    printf("%d",exam());
     printf("\n");
 }
 
 int exam(){
     for(game1.i=0;game1.i<game.lin;game1.i++) {
-        for (game1.j = 0; game1.j < game.col; game1.j++) {
+        for (game1.j = 0; game1.j < game.col;game1.j++) {
             if(game.game[game1.i][game1.j]=='1'||game.game1[game1.i][game1.j]=='1'){
                 return 1;
-            } else{
-                return 0;
             }
         }
     }
+    return 0;
 }
-*/
+
 //Run the game
 void Run() {
     N_L();
     if_Step();
     //Get_step();
-    play_game();
-    //printf("%d",Get_step());
+    //play_game();
+    printf("%d",Get_step());
     //sdl();
 }

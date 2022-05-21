@@ -21,10 +21,60 @@ void play(){
                 SDL_Rect re = {game1.j*WIDTH/game.col,game1.i*HEIGHT/game.lin,WIDTH/game.col,HEIGHT/game.lin};
                 SDL_FillRect(screen,&re,0xff00000000);
             }
+            if(game.game[game1.i][game1.j]=='0'){
+                SDL_Rect re = {game1.j*WIDTH/game.col,game1.i*HEIGHT/game.lin,WIDTH/game.col,HEIGHT/game.lin};
+                SDL_FillRect(screen,&re,0xffffffffff);
+            }
         }
         //printf("\n");
     }
+    SDL_UpdateWindowSurface(win);
+    SDL_Delay(1000);
     //printf("%d",game.time);
+    while (1){
+        game_odd();
+        if(exam()==0||game.time>game.step){
+            break;
+        }
+        for(game1.i=0;game1.i<game.lin;game1.i++){
+            for(game1.j=0;game1.j<game.col;game1.j++)
+            {
+                //printf("%c",game.game[game1.i][game1.j]);
+                if(game.game1[game1.i][game1.j]=='1'){
+                    SDL_Rect re = {game1.j*WIDTH/game.col,game1.i*HEIGHT/game.lin,WIDTH/game.col,HEIGHT/game.lin};
+                    SDL_FillRect(screen,&re,0xff00000000);
+                }
+                if(game.game1[game1.i][game1.j]=='0'){
+                    SDL_Rect re = {game1.j*WIDTH/game.col,game1.i*HEIGHT/game.lin,WIDTH/game.col,HEIGHT/game.lin};
+                    SDL_FillRect(screen,&re,0xffffffffff);
+                }
+            }
+            //printf("\n");
+        }
+        SDL_UpdateWindowSurface(win);
+        SDL_Delay(1000);
+        game_even();
+        if(exam()==0||game.time>game.step){
+            break;
+        }
+        for(game1.i=0;game1.i<game.lin;game1.i++){
+            for(game1.j=0;game1.j<game.col;game1.j++)
+            {
+                //printf("%c",game.game[game1.i][game1.j]);
+                if(game.game[game1.i][game1.j]=='1'){
+                    SDL_Rect re = {game1.j*WIDTH/game.col,game1.i*HEIGHT/game.lin,WIDTH/game.col,HEIGHT/game.lin};
+                    SDL_FillRect(screen,&re,0xff00000000);
+                }
+                if(game.game[game1.i][game1.j]=='0'){
+                    SDL_Rect re = {game1.j*WIDTH/game.col,game1.i*HEIGHT/game.lin,WIDTH/game.col,HEIGHT/game.lin};
+                    SDL_FillRect(screen,&re,0xffffffffff);
+                }
+            }
+            //printf("\n");
+        }
+        SDL_UpdateWindowSurface(win);
+        SDL_Delay(1000);
+    }
 }
 void sdl(){
     if (SDL_Init(SDL_INIT_VIDEO)) {
@@ -44,8 +94,7 @@ void sdl(){
     SDL_Rect r={0,0,WIDTH,HEIGHT};
     SDL_FillRect(screen,&r,0xffffffff);
     play();
-    SDL_UpdateWindowSurface(win);
-    SDL_Delay(3000);
+
     SDL_DestroyWindow(win);
 }
 
