@@ -11,7 +11,7 @@ struct Game{
     char game[50][50];
     int time;
     int step;
-    int count;
+    int exam;
     char game1[50][50];
 };
 
@@ -29,5 +29,4 @@ void if_Step();
 int Get_Step();
 void game_odd();
 void game_even();
-int exam();
 void Run();

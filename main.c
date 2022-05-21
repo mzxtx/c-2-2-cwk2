@@ -5,6 +5,6 @@
 int main() {
     Run();
     sdl();
-    //Run();
+    Write_File();
     return 0;
 }
