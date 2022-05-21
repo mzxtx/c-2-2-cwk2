@@ -12,6 +12,7 @@ struct Game{
     int time;
     int step;
     int exam;
+    int exam1;
     char game1[50][50];
 };
 
